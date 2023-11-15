@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Odin Project: Rock Paper Scissors</title>
+</head>
+<body>
+    Press F12 to open the console and play the game.
+
+    <script>
+        function getComputerChoice() {
+            let choice = ['Rock', 'Paper', 'Scissors'];
+            return choice[(Math.floor(Math.random() * choice.length))];
+        }
+
+        function playRound(playerSelection, computerSelection) {
+            let options = {
+                R: 'Rock',
+                P: 'Paper',
+                S: 'Scissors'
+            }
+            switch(computerSelection+ "|" +playerSelection) {
+                case options.R+ "|" +options.S:
+                case options.P+ "|" +options.R: 
+                case options.S+ "|" +options.P: 
+                    console.log("You Lose! " + computerSelection + " beats " + playerSelection);
+                    return -1;
+                    break;
+                case options.R+ "|" +options.R: 
+                case options.P+ "|" +options.P: 
+                case options.S+ "|" +options.S: 
+                    console.log("It's a tie!");
+                    return 0;
+                    break;  
+                default:
+                    console.log("You Win! " + playerSelection + " beats " + computerSelection);        
+                    return 1;      
+            }
+        }
+
+        function getUserInput() {
+            let temp;
+            while(temp != "Rock" && temp != "Paper" && temp != "Scissors") {
+                temp = prompt("Rock - Paper - Scissors");
+                temp = temp.charAt(0).toUpperCase() + temp.slice(1).toLowerCase();
+            }
+             
+            return temp;
+        }
+
+        function game() {
+            let playerWinStatus = 0;
+            for(let i=0; i<5; i++) {
+                let playerSelection = getUserInput();
+                playerWinStatus += playRound(playerSelection, getComputerChoice());
+                console.log("Win status: " + playerWinStatus);
+            }
+
+            if(playerWinStatus >= 0) {
+                console.log("You win the game!");
+            } else {
+                console.log("You lost the game!");
+            }
+        }
+
+        game();
+    </script>
+</body>
+</html>
